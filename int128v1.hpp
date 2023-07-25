@@ -48,7 +48,7 @@ bool operator!=(uint128_t a,uint128_t b){
     return !(a == b);
 }
 bool operator<(uint128_t a,uint128_t b){
-    return (a.hi < b.hi)?a.lo < b.lo:0;
+    return (a.hi < b.hi)?a.lo <= b.lo:0;
 }
 bool operator>(uint128_t a,uint128_t b){
     return !(a == b || a < b);
