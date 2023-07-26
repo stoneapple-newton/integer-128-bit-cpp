@@ -78,7 +78,7 @@ uint128_t operator<<(uint128_t n,int shift){
     }
     return (k << shift - 64) << 64;
 }
-uint128_t compound(unsigned long long a,unsigned long long b){
+uint128_t& compound(unsigned long long a,unsigned long long b){
     pair<unsigned long long, unsigned long long> k;
     k.first = a;
     k.second = b;
