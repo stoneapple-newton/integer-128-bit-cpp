@@ -237,7 +237,7 @@ void write(uint128_t x) {
         return;
     }
 
-    string output;
+    std::string output;
     while (!(x.hi == 0 && x.lo == 0)) {
         uint128_t remainder = x % 10;  // Calculate remainder of division by 10
         x /= 10;  // Divide the number by 10
