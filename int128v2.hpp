@@ -203,10 +203,12 @@ uint128_t operator%(uint128_t n,unsigned long long c){
     };
     return calculateModulo(n.lo, n.hi, c);
 }
-uint128_t operator/(uint128_t p,unsigned int c){
+uint128_t operator/(uint128_t p,unsigned long long c){
     
     unsigned long long a = p.lo,b = p.hi, quotient = (a / c);
-
+    if (b > __UINT32_MAX__ + 1) {
+        return 0;
+    }
     // Break down b into two 32-bit parts
     unsigned long long b_high = b >> 32;
     unsigned long long b_low = b & 0xFFFFFFFF;
