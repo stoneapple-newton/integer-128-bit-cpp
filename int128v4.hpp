@@ -78,8 +78,8 @@ uint128_t operator<<(uint128_t n,int shift){
     }
     return (k << shift - 64) << 64;
 }
-uint128_t& compound(unsigned long long a,unsigned long long b){
-    pair<unsigned long long, unsigned long long> k;
+uint128_t compound(unsigned long long a,unsigned long long b){
+    std::pair<unsigned long long, unsigned long long> k;
     k.first = a;
     k.second = b;
     return uint128_t(k);
@@ -233,7 +233,7 @@ uint128_t &operator%=(uint128_t &a,unsigned long long b){
 
 void write(uint128_t x) {
     if (x.hi == 0 && x.lo == 0) {
-        cout << '0' << endl;
+        std::cout << '0';
         return;
     }
 
@@ -244,13 +244,13 @@ void write(uint128_t x) {
         output = static_cast<char>(remainder.lo + '0') + output;  // Convert the remainder to char and add to the front of the string
     }
 
-    cout << output << endl;
+    std::cout << output;
 }
 
 void read(uint128_t &n){
     n = 0;
-    string s;
-    cin >> s;
+    std::string s;
+    std::cin >> s;
     for (char c:s) {
         n = n * 10;
         n += c;
