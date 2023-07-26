@@ -10,7 +10,7 @@ using namespace std;
 //on 2023,July 14:
 //uint with 128 bits
 //using two unsigned long long
-//v1:+,-,*,/(uint128_t,unsigned int),%(uint128_t,unsigned long long),bit operators
+//v1:+,-,*,/(uint128_t,unsigned long long),%(uint128_t,unsigned long long),bit operators
 //what's new:Inital release:everything is new!
 #ifndef __SIZEOF_UINT128__
 #define __SIZEOF_UINT128__ 16
