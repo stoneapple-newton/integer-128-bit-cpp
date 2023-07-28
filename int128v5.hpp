@@ -4,7 +4,7 @@
 #include<stdint.h>
 #include<inttypes.h>
 #include<stdbool.h>
-using namespace std;
+//using namespace std;
 //By Steven Jinyan Cheng
 //on 2023,July 27:
 //uint with 128 bits
