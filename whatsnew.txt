@@ -1,0 +1,6 @@
+what's new:
+version 1:Inital release:Everything is new!
+version 2:read and write function and factorial,pow function.
+version 3:fix bugs on the high unsigned long long number.
+version 4:a fix by ChatGPT.
+version 5:replace read and write function by overloaded operator << and >>
