@@ -263,7 +263,7 @@ std::ostream &operator<<(std::ostream &cout, uint128_t x) {
             return "0";
 
         
-        string res = "";
+        std::string res = "";
 
         while (x > 0){
             res += ((x % 10).lo + '0');
