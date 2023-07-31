@@ -1,3 +1,5 @@
+#ifndef INT128V6_HPP
+#define INT128V6_HPP
 #include<iostream>
 #include<stdint.h>
 #include<inttypes.h>
@@ -299,3 +301,4 @@ unsigned long long cubert(uint128_t n){
     }
     return s;
 }
+#endif
