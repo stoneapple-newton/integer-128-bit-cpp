@@ -227,7 +227,7 @@ uint128_t &operator-=(uint128_t &a,uint128_t b){
 uint128_t &operator*=(uint128_t &a,uint128_t b){
     return a = a * b;
 }
-uint128_t &operator/=(uint128_t &a,unsigned int b){
+uint128_t &operator/=(uint128_t &a,unsigned long long b){
     return a = a / b;
 }
 uint128_t &operator%=(uint128_t &a,unsigned long long b){
