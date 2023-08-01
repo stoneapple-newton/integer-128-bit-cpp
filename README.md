@@ -11,4 +11,8 @@ You can use my code is other C++ header code.like this:
 - v4 will got a struct but not a type `uint128_t` by ChatGPT.
 - v5 will delete the `read` and `write` functions and replace them by overloaded `>>` and `<<`.
 - v6 will have a `sqrt` and `cubert` function.
+## My tests
+To let my code correct,I use tests to test my code.I test my `sqrt` and `cubert` function like this:
+$$ floor(\sqrt{1000000}) = 1000 $$
+You can see my test code in the file "example".
 Important:Do Not use my not final version!
