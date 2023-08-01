@@ -12,7 +12,14 @@ You can use my code is other C++ header code.like this:
 - v5 will delete the `read` and `write` functions and replace them by overloaded `>>` and `<<`.
 - v6 will have a `sqrt` and `cubert` function.
 ## My tests
-To let my code correct,I use tests to test my code.I test my `sqrt` and `cubert` function like this:
-$$ floor(\sqrt{1000000}) = 1000 $$
+To let my code correct,I use tests to test my code on Xcode.I test my `sqrt` and `cubert` function like this:
+```cpp
+#include"int128v6.hpp"
+#include<iostream>
+int main(){
+	std::cout << sqrt(uint128_t(1000000ull));//expect answer:1000
+	return 0;
+}
+```
 You can see my test code in the file "example".
 Important:Do Not use my not final version!
