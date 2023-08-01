@@ -8,26 +8,26 @@
 //By Steven Jinyan Cheng
 //on 2023,July 31:
 //uint with 128 bits
-//using two unsigned long long
+//using two uint64_t
 constexpr std::size_t __SIZEOF_UINT128__ = 16;
 
 // Class to handle 128 bit unsigned integers
 typedef struct uint128_t {
-    unsigned long long lo;
-    unsigned long long hi;
+    uint64_t lo;
+    uint64_t hi;
 
     // Default Constructor
-    uint128_t(unsigned long long n = 0) : lo{n}, hi{0} {}
+    uint128_t(uint64_t n = 0) : lo{n}, hi{0} {}
 
     // Constructor with pair
-    uint128_t(const std::pair<unsigned long long, unsigned long long>& n) : lo{n.second}, hi{n.first} {}
+    uint128_t(const std::pair<uint64_t, uint64_t>& n) : lo{n.second}, hi{n.first} {}
 
-    // Conversion to unsigned long long
-    unsigned long long ull() const {
+    // Conversion to uint64_t
+    uint64_t ull() const {
         return this->lo;
     }
 
-    static unsigned long long to_ull(const uint128_t& n) {
+    static uint64_t to_ull(const uint128_t& n) {
         return n.ull();
     }
 }uint128_t;
@@ -39,7 +39,7 @@ long double ld(uint128_t n){
 //==,!= operator
 //>>,<< operator
 //bit operator
-//compound:compound two unsigned long long objects
+//compound:compound two uint64_t objects
 
 bool operator==(uint128_t a,uint128_t b){
     return (a.hi == b.hi)?a.lo == b.lo:0;
@@ -63,7 +63,7 @@ uint128_t operator>>(uint128_t n,int shift){
     uint128_t k = n;
     k.hi = k.hi >> shift;
     k.lo = k.lo >> shift;
-    k.lo += (k.hi - (k.hi >> shift) * (1 << shift)) << (8 * sizeof(unsigned long long) - shift);
+    k.lo += (k.hi - (k.hi >> shift) * (1 << shift)) << (8 * sizeof(uint64_t) - shift);
     return k;
 }
 uint128_t operator<<(uint128_t n,int shift){
@@ -71,7 +71,7 @@ uint128_t operator<<(uint128_t n,int shift){
     if(shift < 64){
         k.hi = k.hi << shift;
         k.lo = k.lo << shift;
-        k.hi += (k.lo >> (8 * sizeof(unsigned long long) - shift));
+        k.hi += (k.lo >> (8 * sizeof(uint64_t) - shift));
         return k;
     }
     if(shift == 64){
@@ -81,8 +81,8 @@ uint128_t operator<<(uint128_t n,int shift){
     }
     return (k << shift - 64) << 64;
 }
-uint128_t compound(unsigned long long a,unsigned long long b){
-    std::pair<unsigned long long, unsigned long long> k;
+uint128_t compound(uint64_t a,uint64_t b){
+    std::pair<uint64_t, uint64_t> k;
     k.first = a;
     k.second = b;
     return uint128_t(k);
@@ -135,11 +135,11 @@ uint128_t &operator^=(uint128_t &a,uint128_t b){
 }
 
 //+,- operator
-unsigned long long add_mod_p64(unsigned long long p,unsigned long long q){
-    const unsigned long long p32 = 1ull+__UINT32_MAX__;
-    unsigned long long k;
-    unsigned long long kl = p % p32 + q % p32;
-    unsigned long long kh = ((p >> 32) + (q >> 32)) % p32;
+uint64_t add_mod_p64(uint64_t p,uint64_t q){
+    const uint64_t p32 = 1ull+__UINT32_MAX__;
+    uint64_t k;
+    uint64_t kl = p % p32 + q % p32;
+    uint64_t kh = ((p >> 32) + (q >> 32)) % p32;
     k = (kh << 32) + kl;
     return k;
 }
@@ -188,10 +188,10 @@ uint128_t &operator*=(uint128_t &a,uint128_t b){
     return a = a * b;
 }
 
-uint128_t operator%(uint128_t n,unsigned long long c){
-    unsigned long long a = n.lo,b = n.hi;
-    unsigned long long base = 2,exp = 64,mod = c;
-    unsigned long long int result = 1;
+uint128_t operator%(uint128_t n,uint64_t c){
+    uint64_t a = n.lo,b = n.hi;
+    uint64_t base = 2,exp = 64,mod = c;
+    uint64_t int result = 1;
     base %= mod;
     
     while (exp > 0) {
@@ -202,29 +202,29 @@ uint128_t operator%(uint128_t n,unsigned long long c){
         exp >>= 1;
     }
     
-    unsigned long long int powResult = result,bTimesPow = (b % c * powResult % c) % c;
-    unsigned long long int fin = (a % c + bTimesPow) % c;
+    uint64_t int powResult = result,bTimesPow = (b % c * powResult % c) % c;
+    uint64_t int fin = (a % c + bTimesPow) % c;
     return fin;
 }
-uint128_t operator/(uint128_t p,unsigned long long c){
+uint128_t operator/(uint128_t p,uint64_t c){
     if (p.hi > __UINT32_MAX__ + 1) {
             return 0;
     }
-    unsigned long long a = p.lo,b = p.hi, quotient = (a / c);
+    uint64_t a = p.lo,b = p.hi, quotient = (a / c);
 
     // Break down b into two 32-bit parts
-    unsigned long long b_high = b >> 32;
-    unsigned long long b_low = b & 0xFFFFFFFF;
+    uint64_t b_high = b >> 32;
+    uint64_t b_low = b & 0xFFFFFFFF;
     // Calculate (b_high * 2^32 + b_low) * 2^32 / c
     quotient += ((b_high << 32) / c) << 32;
     quotient += ((b_high << 32) % c + (b_low << 32)) / c;
     return uint128_t(quotient);
 }
 //
-uint128_t &operator/=(uint128_t &a,unsigned long long b){
+uint128_t &operator/=(uint128_t &a,uint64_t b){
     return a = a / b;
 }
-uint128_t &operator%=(uint128_t &a,unsigned long long b){
+uint128_t &operator%=(uint128_t &a,uint64_t b){
     return a = a % b;
 }
 
@@ -270,8 +270,8 @@ uint128_t factorial(int n){
     return factorial(n - 1) * n;
 }
 //sqrt using bit shifts
-unsigned long long sqrt(uint128_t n){
-    unsigned long long s = 1;
+uint64_t sqrt(uint128_t n){
+    uint64_t s = 1;
     while(!(uint128_t(s) * s <= n and uint128_t(s) * s + (s << 1) + 1 > n)){
         s = (s >> 1) + (uint128_t::to_ull(n / s) >> 1);
         if(s == (s >> 1) + (uint128_t::to_ull(n / s) >> 1)){
@@ -285,8 +285,8 @@ unsigned long long sqrt(uint128_t n){
     }
     return s;
 }
-unsigned long long cubert(uint128_t n){
-    unsigned long long s = 1;
+uint64_t cubert(uint128_t n){
+    uint64_t s = 1;
     
     while(!(uint128_t(s) * s * s <= n and uint128_t(s + 1) * (s + 1) * (s + 1) > n)){
         s = ((s << 1) + uint128_t::to_ull(n / s / s)) / 3;
@@ -301,4 +301,6 @@ unsigned long long cubert(uint128_t n){
     }
     return s;
 }
+#define UINT128_MAX ~uint128_t(0)
+#define __UINT128_MAX__ UINT128_MAX
 #endif
