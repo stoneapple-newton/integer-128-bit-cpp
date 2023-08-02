@@ -1,3 +1,5 @@
+#ifndef INT128_V7_HPP
+#define INT128_V7_HPP
 #include<iostream>
 #include<algorithm>
 #include<stdint.h>
@@ -230,18 +232,18 @@ uint128_t &operator%=(uint128_t &a,unsigned long long b){
 }
 
 std::string to_str(uint128_t x){
-	if (x == 0)
-		return "0";
+    if (x == 0)
+        return "0";
 
-	
-	std::string res = "";
+    
+    std::string res = "";
 
-	while (x > 0){
-		res += ((x % 10).lo + '0');
-		x /= 10;
-	}
-	std::reverse(res.begin(), res.end());
-	return res;
+    while (x > 0){
+        res += ((x % 10).lo + '0');
+        x /= 10;
+    }
+    std::reverse(res.begin(), res.end());
+    return res;
 }
 std::istream &operator>>(std::istream &cin,uint128_t &x) {
     char c;
@@ -258,21 +260,21 @@ std::ostream &operator<<(std::ostream &cout, uint128_t x) {
 }
 //math
 uint128_t pow(uint128_t a,int b){
-	if(a == 0)return 0;
-	if(b >= 80 and a != 2)return 0;
-	if(b >= 38 and a > 10)return 0;
-	if(b > 20 and a > 100)return 0;
+    if(a == 0)return 0;
+    if(b >= 80 and a != 2)return 0;
+    if(b >= 38 and a > 10)return 0;
+    if(b > 20 and a > 100)return 0;
     if(b == 0) return 1;
     if(a == 2) return uint128_t(1) << b;
     uint128_t t = pow(a,b >> 1);
-	if(t > __UINT64_MAX__)return 0;
+    if(t > __UINT64_MAX__)return 0;
     t = t * t;
     if(b & 1) t = t * a;
     return t;
 }
 uint128_t factorial(int n){
     if(n <= 1)return 1;
-	if(n > 20)return 0;
+    if(n > 20)return 0;
     return factorial(n - 1) * n;
 }
 //sqrt using bit shifts
@@ -309,3 +311,4 @@ unsigned long long cubert(uint128_t n){
 }
 #define UINT128_MAX ~uint128_t(0)
 #define __UINT128_MAX__ UINT128_MAX
+#endif
