@@ -192,7 +192,7 @@ uint128_t &operator*=(uint128_t &a,uint128_t b){
 uint128_t operator%(uint128_t n,uint64_t c){
     uint64_t a = n.lo,b = n.hi;
     uint64_t base = 2,exp = 64,mod = c;
-    uint64_t int result = 1;
+    uint64_t result = 1;
     base %= mod;
     
     while (exp > 0) {
@@ -203,8 +203,8 @@ uint128_t operator%(uint128_t n,uint64_t c){
         exp >>= 1;
     }
     
-    uint64_t int powResult = result,bTimesPow = (b % c * powResult % c) % c;
-    uint64_t int fin = (a % c + bTimesPow) % c;
+    uint64_t powResult = result,bTimesPow = (b % c * powResult % c) % c;
+    uint64_t fin = (a % c + bTimesPow) % c;
     return fin;
 }
 
